@@ -15,8 +15,16 @@ function addToDoItem(todoName) {
   const textElement = cloneTemplate.querySelector("[data-list-item-text");
   textElement.innerText = todoName;
   todoList.appendChild(cloneTemplate);
-  todoTextInput.value = "";
+  
 }
+
+function saveToDoList(todoarray) {
+    const convertToString = JSON.stringify(todoarray);
+    localStorage.setItem("TO-DO List", convertToString);
+}
+
+
+
 
 // Events
 
