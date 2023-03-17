@@ -1,6 +1,6 @@
 // Elements
 
-const addTodoButton = document.querySelector("#add-todo-button");
+const form = document.querySelector("#new-todo-form");
 const template = document.querySelector("#list-item-template");
 const todoList = document.querySelector("#list");
 const todoTextInput = document.querySelector("#todo-input");
@@ -21,4 +21,13 @@ function addToDoItem(item) {
 
 // Events
 
-addTodoButton.addEventListener("click", addToDoItem);
+form.addEventListener("submit", e => {
+    e.preventDefault();
+    const todoName = todoTextInput.value;
+    if (todoName === "") return;
+    toDoArray.push(todoName);
+    addToDoItem(todoName);
+    saveToDoList(toDoArray);
+    todoTextInput.value = "";
+});
+
