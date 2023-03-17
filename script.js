@@ -4,7 +4,8 @@ const form = document.querySelector("#new-todo-form");
 const template = document.querySelector("#list-item-template");
 const todoList = document.querySelector("#list");
 const todoTextInput = document.querySelector("#todo-input");
-const toDoArray = [];
+const toDoArray = loadToDoList();
+toDoArray.forEach(addToDoItem);
 
 
 // Functions
@@ -23,6 +24,11 @@ function saveToDoList(todoarray) {
     localStorage.setItem("TO-DO List", convertToString);
 }
 
+function loadToDoList() {
+    const todosString = localStorage.getItem("TO-DO List");
+    return JSON.parse(todosString) || [];   
+}
+
 
 
 
@@ -35,6 +41,7 @@ form.addEventListener("submit", e => {
     toDoArray.push(todoName);
     addToDoItem(todoName);
     saveToDoList(toDoArray);
+    loadToDoList();
     todoTextInput.value = "";
 });
 
