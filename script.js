@@ -4,7 +4,7 @@ const form = document.querySelector("#new-todo-form");
 const template = document.querySelector("#list-item-template");
 const todoList = document.querySelector("#list");
 const todoTextInput = document.querySelector("#todo-input");
-const toDoArray = loadToDoList();
+let toDoArray = loadToDoList();
 toDoArray.forEach(addToDoItem);
 
 // Functions
@@ -16,7 +16,7 @@ function addToDoItem(todoItem) {
   const textElement = cloneTemplate.querySelector("[data-list-item-text");
   textElement.innerText = todoItem.name;
   const checkbox = cloneTemplate.querySelector("[data-list-item-checkbox]");
-  checkbox.checked = todoItem.complete
+  checkbox.checked = todoItem.complete;
   todoList.append(cloneTemplate);
 }
 
@@ -32,15 +32,23 @@ function loadToDoList() {
 
 // Events
 
-todoList.addEventListener("change", e => {
-  if(!e.target.matches("[data-list-item-checkbox]")) return
+todoList.addEventListener("change", (e) => {
+  if (!e.target.matches("[data-list-item-checkbox]")) return;
   const parent = e.target.closest(".list-item");
   const todoId = parent.dataset.todoId;
-  const todo = toDoArray.find(t => t.id === todoId);
+  const todo = toDoArray.find((t) => t.id === todoId);
   todo.complete = e.target.checked;
   saveToDoList();
-  
-})
+});
+
+todoList.addEventListener("click", (e) => {
+  if (!e.target.matches("[data-button-delete]")) return;
+  const parent = e.target.closest(".list-item");
+  const todoId = parent.dataset.todoId;
+  parent.remove();
+  toDoArray = toDoArray.filter(todoItem => todoItem.id !== todoId)
+  saveToDoList();
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
