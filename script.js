@@ -10,11 +10,11 @@ toDoArray.forEach(addToDoItem);
 
 // Functions
 
-function addToDoItem(todoName) {
+function addToDoItem(todoItem) {
   
   const cloneTemplate = template.content.cloneNode(true);
   const textElement = cloneTemplate.querySelector("[data-list-item-text");
-  textElement.innerText = todoName;
+  textElement.innerText = todoItem.name;
   todoList.appendChild(cloneTemplate);
   
 }
@@ -38,10 +38,17 @@ form.addEventListener("submit", e => {
     e.preventDefault();
     const todoName = todoTextInput.value;
     if (todoName === "") return;
-    toDoArray.push(todoName);
-    addToDoItem(todoName);
+    const toDoItem = {
+      id: new Date().valueOf().toString(),
+      name: todoName,
+      checked: false,
+    }
+    toDoArray.push(toDoItem);
+    addToDoItem(toDoItem);
     saveToDoList(toDoArray);
-    loadToDoList();
     todoTextInput.value = "";
 });
 
+// Mark as clicked ToDO
+
+// Delete ToDo
