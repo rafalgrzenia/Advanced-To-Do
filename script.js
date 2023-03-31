@@ -18,8 +18,8 @@ function addToDoItem(todoItem) {
   todoList.append(cloneTemplate);
 }
 
-function saveToDoList(todoarray) {
-  const convertToString = JSON.stringify(todoarray);
+function saveToDoList() {
+  const convertToString = JSON.stringify(toDoArray);
   localStorage.setItem("TO-DO List", convertToString);
 }
 
@@ -30,6 +30,16 @@ function loadToDoList() {
 
 // Events
 
+todoList.addEventListener("change", e => {
+  if(!e.target.matches("[data-list-item-checkbox]")) return
+  const parent = e.target.closest(".list-item");
+  const todoId = parent.dataset.todoId;
+  const todo = toDoArray.find(t => t.id === todoId);
+  todo.complete = e.target.checked;
+  saveToDoList();
+  
+})
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const todoName = todoTextInput.value;
@@ -37,11 +47,11 @@ form.addEventListener("submit", (e) => {
   const toDoItem = {
     id: new Date().valueOf().toString(),
     name: todoName,
-    checked: false,
+    complete: false,
   };
   toDoArray.push(toDoItem);
   addToDoItem(toDoItem);
-  saveToDoList(toDoArray);
+  saveToDoList();
   todoTextInput.value = "";
 });
 
