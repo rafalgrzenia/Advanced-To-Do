@@ -15,6 +15,8 @@ function addToDoItem(todoItem) {
   liItem.dataset.todoId = todoItem.id;
   const textElement = cloneTemplate.querySelector("[data-list-item-text");
   textElement.innerText = todoItem.name;
+  const checkbox = cloneTemplate.querySelector("[data-list-item-checkbox]");
+  checkbox.checked = todoItem.complete
   todoList.append(cloneTemplate);
 }
 
