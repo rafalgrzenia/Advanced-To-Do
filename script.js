@@ -64,7 +64,3 @@ form.addEventListener("submit", (e) => {
   saveToDoList();
   todoTextInput.value = "";
 });
-
-// Mark as clicked ToDO
-
-// Delete ToDo
